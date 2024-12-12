@@ -2352,7 +2352,12 @@ table.dataTable thead td {
 }
 
 .form-gp.focused label {
-    top: -15px;
+    top: -22px;
+    color: #7e74ff;
+}
+.form-gp label {
+
+    top: -22px;
     color: #7e74ff;
 }
 
@@ -2835,4 +2840,12 @@ table.dataTable thead td {
 
 .slimScrollDiv {
     height: auto !important;
+}
+
+.form-gp i {
+    position: absolute;
+    right: 5px;
+    color: #7e74ff;
+    font-size: 16px;
+    margin-top: 5px;
 }
