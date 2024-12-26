@@ -25,7 +25,7 @@ Blog Edit - Admin Panel
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('admin.admins.index') }}">All Blogs</a></li>
-                    <li><span>Edit Blog - {{ $admin->name }}</span></li>
+                    <li><span>Edit Blog - {{ $admin->title }}</span></li>
                 </ul>
             </div>
         </div>
@@ -42,7 +42,7 @@ Blog Edit - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Edit Blog - {{ $admin->name }}</h4>
+                    <h4 class="header-title">Edit Blog - {{ $admin->title }}</h4>
                     @include('backend.layouts.partials.messages')
 
                     <form action="{{ route('admin.blogs.update', $admin->id) }}" method="POST">
@@ -94,7 +94,7 @@ Blog Edit - Admin Panel
                                 <label for="password">Blog Image</label>
                                 <input type="file" name="image" id="image" class="form-control" />
                                 <br />
-                                <img src="{{ asset('storage/'.$admin->image) }}" alt="Blog Image" width="100px"
+                                <img src="{{ asset('blogs/'.$admin->image) }}" alt="Blog Image" width="100px"
                                     height="80px" />
                             </div>
                             <div class="form-group col-md-6 col-sm-6">

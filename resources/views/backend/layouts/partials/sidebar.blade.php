@@ -80,7 +80,8 @@ $usr = Auth::guard('admin')->user();
                     @if ($usr->can('banner.create') || $usr->can('banner.view') || $usr->can('banner.edit') ||
                     $usr->can('banner.delete'))
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Banners</span>
+                        <a href="javascript:void(0)" aria-expanded="true"><i
+                                class="fa fa-picture-o"></i><span>Banners</span>
                         </a>
                         <ul
                             class="collapse {{ Route::is('admin.banner.create') || Route::is('admin.banner.index') || Route::is('admin.banner.edit') || Route::is('admin.banner.show') ? 'in' : '' }}">
@@ -103,7 +104,8 @@ $usr = Auth::guard('admin')->user();
                     @if ($usr->can('cms.create') || $usr->can('cms.view') || $usr->can('cms.edit') ||
                     $usr->can('cms.delete'))
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>CMS</span>
+                        <a href="javascript:void(0)" aria-expanded="true"><i
+                                class="fa fa-file-text"></i><span>CMS</span>
                         </a>
                         <ul
                             class="collapse {{ Route::is('admin.cms.create') || Route::is('admin.cms.index') || Route::is('admin.cms.edit') || Route::is('admin.cms.show') ? 'in' : '' }}">
@@ -126,7 +128,7 @@ $usr = Auth::guard('admin')->user();
                     @if ($usr->can('blogs.create') || $usr->can('blogs.view') || $usr->can('blogs.edit') ||
                     $usr->can('blogs.delete'))
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Blogs</span>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-rss"></i><span>Blogs</span>
                         </a>
                         <ul
                             class="collapse {{ Route::is('admin.blogs.create') || Route::is('admin.blogs.index') || Route::is('admin.blogs.edit') || Route::is('admin.blogs.show') ? 'in' : '' }}">
@@ -149,7 +151,8 @@ $usr = Auth::guard('admin')->user();
                     @if ($usr->can('client.create') || $usr->can('client.view') || $usr->can('client.edit') ||
                     $usr->can('client.delete'))
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Clients</span>
+                        <a href="javascript:void(0)" aria-expanded="true"><i
+                                class="fa fa-user-secret"></i><span>Clients</span>
                         </a>
                         <ul
                             class="collapse {{ Route::is('admin.client.create') || Route::is('admin.client.index') || Route::is('admin.client.edit') || Route::is('admin.client.show') ? 'in' : '' }}">
@@ -171,7 +174,7 @@ $usr = Auth::guard('admin')->user();
                     @if ($usr->can('Ourteam.create') || $usr->can('Ourteam.view') || $usr->can('Ourteam.edit') ||
                     $usr->can('Ourteam.delete'))
                     <li>
-                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-user"></i><span>Teams</span>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-users"></i><span>Teams</span>
                         </a>
                         <ul
                             class="collapse {{ Route::is('admin.ourteam.create') || Route::is('admin.ourteam.index') || Route::is('admin.ourteam.edit') || Route::is('admin.ourteam.show') ? 'in' : '' }}">
@@ -186,6 +189,80 @@ $usr = Auth::guard('admin')->user();
                             @if ($usr->can('Ourteam.create'))
                             <li class="{{ Route::is('admin.ourteam.create')  ? 'active' : '' }}"><a
                                     href="{{ route('admin.ourteam.create') }}">Create Teams</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if ($usr->can('event.create') || $usr->can('event.view') || $usr->can('event.edit') ||
+                    $usr->can('event.delete'))
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i
+                                class="fa fa-calendar"></i><span>Events</span>
+                        </a>
+                        <ul
+                            class="collapse {{ Route::is('admin.event.create') || Route::is('admin.event.index') || Route::is('admin.event.edit') || Route::is('admin.event.show') ? 'in' : '' }}">
+
+                            @if ($usr->can('event.view'))
+                            <li
+                                class="{{ Route::is('admin.event.index')  || Route::is('admin.event.edit') ? 'active' : '' }}">
+                                <a href="{{ route('admin.event.index') }}">All Events</a>
+                            </li>
+                            @endif
+
+                            @if ($usr->can('event.create'))
+                            <li class="{{ Route::is('admin.event.create')  ? 'active' : '' }}"><a
+                                    href="{{ route('admin.event.create') }}">Create Event</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if ($usr->can('plan.create') || $usr->can('plan.view') || $usr->can('plan.edit') ||
+                    $usr->can('plan.delete'))
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i class="fa fa-paper-plane"></i><span>Service
+                                Plans</span>
+                        </a>
+                        <ul
+                            class="collapse {{ Route::is('admin.plan.create') || Route::is('admin.plan.index') || Route::is('admin.plan.edit') || Route::is('admin.plan.show') ? 'in' : '' }}">
+
+                            @if ($usr->can('plan.view'))
+                            <li
+                                class="{{ Route::is('admin.plan.index')  || Route::is('admin.plan.edit') ? 'active' : '' }}">
+                                <a href="{{ route('admin.plan.index') }}">All Service
+                                    Plans</a>
+                            </li>
+                            @endif
+
+                            @if ($usr->can('plan.create'))
+                            <li class="{{ Route::is('admin.plan.create')  ? 'active' : '' }}"><a
+                                    href="{{ route('admin.plan.create') }}">Create Plans</a></li>
+                            @endif
+                        </ul>
+                    </li>
+                    @endif
+
+                    @if ($usr->can('testimonial.create') || $usr->can('testimonial.view') ||
+                    $usr->can('testimonial.edit') ||
+                    $usr->can('testimonial.delete'))
+                    <li>
+                        <a href="javascript:void(0)" aria-expanded="true"><i
+                                class="fa fa-paper-plane"></i><span>Testimonials</span>
+                        </a>
+                        <ul
+                            class="collapse {{ Route::is('admin.testimonial.create') || Route::is('admin.testimonial.index') || Route::is('admin.testimonial.edit') || Route::is('admin.testimonial.show') ? 'in' : '' }}">
+
+                            @if ($usr->can('testimonial.view'))
+                            <li
+                                class="{{ Route::is('admin.testimonial.index')  || Route::is('admin.testimonial.edit') ? 'active' : '' }}">
+                                <a href="{{ route('admin.testimonial.index') }}">All Testimonials</a>
+                            </li>
+                            @endif
+
+                            @if ($usr->can('testimonial.create'))
+                            <li class="{{ Route::is('admin.testimonial.create')  ? 'active' : '' }}"><a
+                                    href="{{ route('admin.testimonial.create') }}">Create Testimonial</a></li>
                             @endif
                         </ul>
                     </li>

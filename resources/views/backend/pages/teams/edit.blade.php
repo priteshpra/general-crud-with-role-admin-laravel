@@ -60,7 +60,6 @@ Team Edit - Admin Panel
                                 <input type="text" class="form-control" id="city" name="city" placeholder="Enter City"
                                     value="{{ $admin->city }}" required autofocus>
                             </div>
-
                         </div>
 
                         <div class="form-row">

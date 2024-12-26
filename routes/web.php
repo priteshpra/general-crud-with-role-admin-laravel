@@ -13,6 +13,8 @@ use App\Http\Controllers\Backend\BlogsController;
 use App\Http\Controllers\Backend\CmsController;
 use App\Http\Controllers\Backend\ClientController;
 use App\Http\Controllers\Backend\OurteamController;
+use App\Http\Controllers\Backend\EventController;
+use App\Http\Controllers\Backend\PlanController;
 
 /*
 |--------------------------------------------------------------------------
@@ -46,6 +48,8 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.'], function () {
     Route::resource('blogs', BlogsController::class);
     Route::resource('client', ClientController::class);
     Route::resource('ourteam', OurteamController::class);
+    Route::resource('event', EventController::class);
+    Route::resource('plan', PlanController::class);
 
     // Login Routes.
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');

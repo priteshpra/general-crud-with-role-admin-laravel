@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Client Edit - Admin Panel
+Event Create - Admin Panel
 @endsection
 
 @section('styles')
@@ -14,6 +14,7 @@ Client Edit - Admin Panel
 </style>
 @endsection
 
+
 @section('admin-content')
 
 <!-- page title area start -->
@@ -21,11 +22,11 @@ Client Edit - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Client Edit</h4>
+                <h4 class="page-title pull-left">Event Create</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.client.index') }}">All Clients</a></li>
-                    <li><span>Edit Client - {{ $admin->name }}</span></li>
+                    <li><a href="{{ route('admin.event.index') }}">All Events</a></li>
+                    <li><span>Create Blog</span></li>
                 </ul>
             </div>
         </div>
@@ -42,57 +43,57 @@ Client Edit - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Edit Client - {{ $admin->name }}</h4>
+                    <h4 class="header-title">Create New Event</h4>
                     @include('backend.layouts.partials.messages')
 
-                    <form action="{{ route('admin.client.update', $admin->id) }}" method="POST">
-                        @method('PUT')
+                    <form action="{{ route('admin.event.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-row">
 
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="name">Client Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Enter Title"
-                                    value="{{ $admin->name }}" required autofocus>
+                                <label for="name">Event Name</label>
+                                <input type="text" class="form-control" id="event_name" name="event_name"
+                                    placeholder="Enter Name" required autofocus value="{{ old('event_name') }}"
+                                    required>
                             </div>
                             <div class="form-group col-md-6 col-sm-12">
-                                <label for="name">Client City</label>
-                                <input type="text" class="form-control" id="city" name="city" placeholder="Enter City"
-                                    value="{{ $admin->city }}" required autofocus>
+                                <label for="name">Location</label>
+                                <input type="text" class="form-control" id="location" name="location"
+                                    placeholder="Enter City" required autofocus value="{{ old('location') }}" required>
                             </div>
 
                         </div>
 
                         <div class="form-row">
-                            <label for="password">Description</label>
-                            <textarea class="form-control" id="description"
-                                name="description">{{ $admin->description }}</textarea>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="password">Description</label>
+                                <textarea required class="form-control" id="description" name="description"></textarea>
+                            </div>
+                            <div class="form-group col-md-6 col-sm-12">
+                                <label for="name">Hours</label>
+                                <input type="text" class="form-control" id="hours" name="hours" placeholder="Enter Hour"
+                                    value="" required autofocus>
+                            </div>
                         </div>
 
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6">
-                                <label for="password">Client Image</label>
-                                <input type="file" name="image" id="image" class="form-control" />
-                                <br />
-                                <img src="{{ asset('clients/'.$admin->image) }}" alt="Blog Image" width="100px"
-                                    height="80px" />
+                                <label for="password">Image</label>
+                                <input type="file" name="image" id="image" class="form-control" required />
                             </div>
-
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="username">Status</label>
                                 <select class="form-control " id="status" name="status" required>
-                                    <option value="1" {{ old('status')=='1' ? 'selected' : '' }} {{ $admin->status=='1'
-                                        ? 'selected' : '' }}>Active
+                                    <option value="1" {{ old('status')=='1' ? 'selected' : '' }}>Active
                                     </option>
-                                    <option value="0" {{ old('status')=='0' ? 'selected' : '' }} {{ $admin->status=='0'
-                                        ? 'selected' : '' }}>Inactive
+                                    <option value="0" {{ old('status')=='0' ? 'selected' : '' }}>Inactive
                                     </option>
                                 </select>
                             </div>
                         </div>
 
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save</button>
-                        <a href="{{ route('admin.client.index') }}" class="btn btn-secondary mt-4 pr-4 pl-4">Cancel</a>
+                        <a href="{{ route('admin.event.index') }}" class="btn btn-secondary mt-4 pr-4 pl-4">Cancel</a>
                     </form>
                 </div>
             </div>

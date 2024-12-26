@@ -68,7 +68,9 @@ Banner Create - Admin Panel
                             </div>
                         </div>
 
+
                         <div class="form-row">
+
                             <div class="form-group col-md-6 col-sm-6">
                                 <label for="password">Banner Image</label>
                                 <input type="file" name="image" id="image" class="form-control" />
@@ -81,6 +83,12 @@ Banner Create - Admin Panel
                                     <option value="0" {{ old('status')=='0' ? 'selected' : '' }}>Inactive
                                     </option>
                                 </select>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="is_popup" name="is_popup">
+                                <label class="form-check-label" for="is_popup">Popup Show on Web</label>
                             </div>
                         </div>
 

@@ -4,22 +4,23 @@ namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
 use App\Models\Banner;
+use App\Models\Event;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
 
-class BannerController extends Controller
+class EventController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $this->checkAuthorization(auth()->user(), ['banner.create']);
+        $this->checkAuthorization(auth()->user(), ['event.create']);
 
-        return view('backend.pages.banners.index', [
-            'admins' => Banner::all(),
+        return view('backend.pages.events.index', [
+            'admins' => Event::all(),
         ]);
     }
 
@@ -28,9 +29,9 @@ class BannerController extends Controller
      */
     public function create()
     {
-        $this->checkAuthorization(auth()->user(), ['banner.create']);
+        $this->checkAuthorization(auth()->user(), ['event.create']);
 
-        return view('backend.pages.banners.create', []);
+        return view('backend.pages.events.create', []);
     }
 
     /**
@@ -38,23 +39,23 @@ class BannerController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->checkAuthorization(auth()->user(), ['banner.create']);
+        $this->checkAuthorization(auth()->user(), ['event.create']);
 
-        $admin = new Banner();
-        $admin->title = $request->title;
-        $admin->heading = $request->heading;
-        $admin->is_popup = isset($request->is_popup) && $request->is_popup == 'on' ? 1 : 0;
-        $admin->desc = $request->desc;
+        $admin = new Event();
+        $admin->event_name = $request->event_name;
+        $admin->location = $request->location;
+        $admin->description = $request->description;
+        $admin->hours = $request->hours;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('banners'), $imageName); // Save to 'public/uploads'
+            $image->move(public_path('events'), $imageName); // Save to 'public/uploads'
             $admin->image = $imageName;
         }
         $admin->save();
 
-        session()->flash('success', __('Banner has been created.'));
-        return redirect()->route('admin.banner.index');
+        session()->flash('success', __('Event has been created.'));
+        return redirect()->route('admin.event.index');
     }
 
     /**
@@ -70,10 +71,10 @@ class BannerController extends Controller
      */
     public function edit(int $id): Renderable
     {
-        $this->checkAuthorization(auth()->user(), ['banner.edit']);
+        $this->checkAuthorization(auth()->user(), ['event.edit']);
 
-        $admin = Banner::findOrFail($id);
-        return view('backend.pages.banners.edit', [
+        $admin = Event::findOrFail($id);
+        return view('backend.pages.events.edit', [
             'admin' => $admin,
             'roles' => Role::all(),
         ]);
@@ -84,21 +85,22 @@ class BannerController extends Controller
      */
     public function update(Request $request, int $id): RedirectResponse
     {
-        $this->checkAuthorization(auth()->user(), ['banner.edit']);
-        $admin = Banner::findOrFail($id);
-        $admin->title = $request->title;
-        $admin->heading = $request->heading;
-        $admin->is_popup = isset($request->is_popup) && $request->is_popup == 'on' ? 1 : 0;
-        $admin->desc = $request->desc;
+        $this->checkAuthorization(auth()->user(), ['event.edit']);
+
+        $admin = Event::findOrFail($id);
+        $admin->event_name = $request->event_name;
+        $admin->location = $request->location;
+        $admin->description = $request->description;
+        $admin->hours = $request->hours;
         if ($request->hasFile('image')) {
             $image = $request->file('image');
             $imageName = time() . '.' . $image->getClientOriginalExtension();
-            $image->move(public_path('banners'), $imageName); // Save to 'public/uploads'
+            $image->move(public_path('events'), $imageName); // Save to 'public/uploads'
             $admin->image = $imageName;
         }
         $admin->save();
 
-        session()->flash('success', 'Banner has been updated.');
+        session()->flash('success', 'Event has been updated.');
         return back();
     }
 
@@ -107,11 +109,11 @@ class BannerController extends Controller
      */
     public function destroy(int $id): RedirectResponse
     {
-        $this->checkAuthorization(auth()->user(), ['banner.delete']);
+        $this->checkAuthorization(auth()->user(), ['event.delete']);
 
-        $admin = Banner::findOrFail($id);
+        $admin = Event::findOrFail($id);
         $admin->delete();
-        session()->flash('success', 'Banner has been deleted.');
+        session()->flash('success', 'Event has been deleted.');
         return back();
     }
 }

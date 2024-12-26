@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-Banner Edit - Admin Panel
+Testimonial Edit - Admin Panel
 @endsection
 
 @section('styles')
@@ -21,11 +21,11 @@ Banner Edit - Admin Panel
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">Banner Edit</h4>
+                <h4 class="page-title pull-left">Testimonial Edit</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">Dashboard</a></li>
-                    <li><a href="{{ route('admin.admins.index') }}">All Banners</a></li>
-                    <li><span>Edit Banner - {{ $admin->title }}</span></li>
+                    <li><a href="{{ route('admin.admins.index') }}">All Testimonials</a></li>
+                    <li><span>Edit Testimonial - {{ $admin->title }}</span></li>
                 </ul>
             </div>
         </div>
@@ -42,10 +42,10 @@ Banner Edit - Admin Panel
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title">Edit Admin - {{ $admin->title }}</h4>
+                    <h4 class="header-title">Edit Testimonial - {{ $admin->title }}</h4>
                     @include('backend.layouts.partials.messages')
 
-                    <form action="{{ route('admin.banner.update', $admin->id) }}" method="POST">
+                    <form action="{{ route('admin.testimonial.update', $admin->id) }}" method="POST">
                         @method('PUT')
                         @csrf
                         <div class="form-row">
@@ -53,11 +53,6 @@ Banner Edit - Admin Panel
                                 <label for="name">Title</label>
                                 <input type="text" class="form-control" id="title" name="title"
                                     placeholder="Enter Title" value="{{ $admin->title }}" required autofocus>
-                            </div>
-                            <div class="form-group col-md-6 col-sm-12">
-                                <label for="email">Heading</label>
-                                <input type="text" class="form-control" id="heading" name="heading"
-                                    placeholder="Enter Heading" value="{{ $admin->heading }}" required>
                             </div>
                         </div>
 
@@ -68,10 +63,10 @@ Banner Edit - Admin Panel
 
                         <div class="form-row">
                             <div class="form-group col-md-6 col-sm-6">
-                                <label for="password">Banner Image</label>
+                                <label for="password">Profile Image</label>
                                 <input type="file" name="image" id="image" class="form-control" />
                                 <br />
-                                <img src="{{ asset('banners/'.$admin->image) }}" alt="Banner Image" width="100px"
+                                <img src="{{ asset('testimonials/'.$admin->image) }}" alt="Profile Image" width="100px"
                                     height="80px" />
                             </div>
                             <div class="form-group col-md-6 col-sm-6">
@@ -86,17 +81,10 @@ Banner Edit - Admin Panel
                                 </select>
                             </div>
                         </div>
-                        <div class="form-row">
-                            <div class="form-check">
-                                <input type="checkbox" class="form-check-input" id="is_popup" name="is_popup" {{
-                                    $admin->is_popup=='1'
-                                ? 'checked' : '' }}>
-                                <label class="form-check-label" for="is_popup">Popup Show on Web</label>
-                            </div>
-                        </div>
 
                         <button type="submit" class="btn btn-primary mt-4 pr-4 pl-4">Save</button>
-                        <a href="{{ route('admin.banner.index') }}" class="btn btn-secondary mt-4 pr-4 pl-4">Cancel</a>
+                        <a href="{{ route('admin.testimonial.index') }}"
+                            class="btn btn-secondary mt-4 pr-4 pl-4">Cancel</a>
                     </form>
                 </div>
             </div>

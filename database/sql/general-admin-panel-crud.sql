@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 12, 2024 at 06:53 AM
+-- Generation Time: Dec 26, 2024 at 08:19 AM
 -- Server version: 10.4.32-MariaDB
 -- PHP Version: 8.2.12
 
@@ -58,6 +58,7 @@ CREATE TABLE `banners` (
   `heading` varchar(150) NOT NULL,
   `desc` varchar(256) NOT NULL,
   `image` varchar(250) NOT NULL,
+  `is_popup` tinyint(4) NOT NULL DEFAULT 0,
   `status` tinyint(4) NOT NULL DEFAULT 1,
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
@@ -67,8 +68,8 @@ CREATE TABLE `banners` (
 -- Dumping data for table `banners`
 --
 
-INSERT INTO `banners` (`id`, `title`, `heading`, `desc`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, 'h', 'vh', 'vgv', '1733404791.png', 1, '2024-12-05 07:49:51', '2024-12-05 07:49:51');
+INSERT INTO `banners` (`id`, `title`, `heading`, `desc`, `image`, `is_popup`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'h', 'vh', 'vgv', '1733404791.png', 0, 1, '2024-12-05 07:49:51', '2024-12-26 01:01:59');
 
 -- --------------------------------------------------------
 
@@ -142,6 +143,31 @@ CREATE TABLE `cms` (
   `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `events`
+--
+
+CREATE TABLE `events` (
+  `id` int(11) NOT NULL,
+  `event_name` varchar(100) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `location` varchar(256) DEFAULT NULL,
+  `image` varchar(256) DEFAULT NULL,
+  `hours` varchar(256) DEFAULT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `events`
+--
+
+INSERT INTO `events` (`id`, `event_name`, `description`, `location`, `image`, `hours`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Test', 'bghjh', 'Ahmedabad', '1733999540.png', '12hr', 1, '2024-12-12 05:02:20', '2024-12-12 06:36:20');
 
 -- --------------------------------------------------------
 
@@ -284,7 +310,50 @@ INSERT INTO `permissions` (`id`, `name`, `guard_name`, `group_name`, `created_at
 (53, 'Ourteam.view', 'admin', 'Ourteam', '2024-11-13 10:47:52', NULL),
 (54, 'Ourteam.edit', 'admin', 'Ourteam', '2024-11-13 10:47:52', NULL),
 (55, 'Ourteam.delete', 'admin', 'Ourteam', '2024-11-13 10:47:52', NULL),
-(56, 'Ourteam.approve', 'admin', 'Ourteam', '2024-11-13 10:47:52', NULL);
+(56, 'Ourteam.approve', 'admin', 'Ourteam', '2024-11-13 10:47:52', NULL),
+(57, 'event.create', 'admin', 'event', '2024-11-13 10:47:52', NULL),
+(58, 'event.view', 'admin', 'event', '2024-11-13 10:47:52', NULL),
+(59, 'event.edit', 'admin', 'event', '2024-11-13 10:47:52', NULL),
+(60, 'event.delete', 'admin', 'event', '2024-11-13 10:47:52', NULL),
+(61, 'event.approve', 'admin', 'event', '2024-11-13 10:47:52', NULL),
+(62, 'plan.create', 'admin', 'plan', '2024-11-13 10:47:52', NULL),
+(63, 'plan.view', 'admin', 'plan', '2024-11-13 10:47:52', NULL),
+(64, 'plan.edit', 'admin', 'plan', '2024-11-13 10:47:52', NULL),
+(65, 'plan.delete', 'admin', 'plan', '2024-11-13 10:47:52', NULL),
+(66, 'plan.approve', 'admin', 'plan', '2024-11-13 10:47:52', NULL),
+(67, 'testimonial.create', 'admin', 'testimonial', '2024-11-13 10:47:52', NULL),
+(68, 'testimonial.view', 'admin', 'testimonial', '2024-11-13 10:47:52', NULL),
+(69, 'testimonial.edit', 'admin', 'testimonial', '2024-11-13 10:47:52', NULL),
+(70, 'testimonial.delete', 'admin', 'testimonial', '2024-11-13 10:47:52', NULL),
+(71, 'testimonial.approve', 'admin', 'testimonial', '2024-11-13 10:47:52', NULL);
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `plans`
+--
+
+CREATE TABLE `plans` (
+  `id` int(11) NOT NULL,
+  `plan_name` varchar(100) DEFAULT NULL,
+  `sort_desc` varchar(200) DEFAULT NULL,
+  `description` text DEFAULT NULL,
+  `price` decimal(10,2) NOT NULL DEFAULT 0.00,
+  `image` varchar(256) DEFAULT NULL,
+  `validity` varchar(100) DEFAULT NULL,
+  `session` varchar(100) DEFAULT NULL,
+  `plan_type` enum('Member Plan','Service Plan') NOT NULL DEFAULT 'Member Plan',
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `plans`
+--
+
+INSERT INTO `plans` (`id`, `plan_name`, `sort_desc`, `description`, `price`, `image`, `validity`, `session`, `plan_type`, `status`, `created_at`, `updated_at`) VALUES
+(1, 'Test', 'sdf sdf sdf', 'sdf sdfsdfsdfsdf', 1420.00, NULL, '12 month', 'Session 1', 'Member Plan', 1, '2024-12-25 06:57:02', '2024-12-25 06:57:02');
 
 -- --------------------------------------------------------
 
@@ -363,7 +432,17 @@ INSERT INTO `role_has_permissions` (`permission_id`, `role_id`) VALUES
 (53, 1),
 (54, 1),
 (55, 1),
-(56, 1);
+(56, 1),
+(57, 1),
+(58, 1),
+(59, 1),
+(60, 1),
+(61, 1),
+(62, 1),
+(63, 1),
+(64, 1),
+(65, 1),
+(66, 1);
 
 -- --------------------------------------------------------
 
@@ -387,6 +466,22 @@ CREATE TABLE `teams` (
 
 INSERT INTO `teams` (`id`, `name`, `position`, `image`, `status`, `created_at`, `updated_at`) VALUES
 (1, 'pritesh.prajapati', 'PHP', '1733920385.png', 1, '2024-12-11 07:03:05', '2024-12-11 07:03:05');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `testimonials`
+--
+
+CREATE TABLE `testimonials` (
+  `id` int(11) NOT NULL,
+  `title` varchar(100) DEFAULT NULL,
+  `description` varchar(256) DEFAULT NULL,
+  `image` varchar(256) NOT NULL,
+  `status` tinyint(4) NOT NULL DEFAULT 1,
+  `created_at` timestamp NOT NULL DEFAULT current_timestamp(),
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -455,6 +550,12 @@ ALTER TABLE `cms`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `events`
+--
+ALTER TABLE `events`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -493,6 +594,12 @@ ALTER TABLE `permissions`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `plans`
+--
+ALTER TABLE `plans`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `roles`
 --
 ALTER TABLE `roles`
@@ -509,6 +616,12 @@ ALTER TABLE `role_has_permissions`
 -- Indexes for table `teams`
 --
 ALTER TABLE `teams`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `testimonials`
+--
+ALTER TABLE `testimonials`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -559,6 +672,12 @@ ALTER TABLE `cms`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `events`
+--
+ALTER TABLE `events`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -574,7 +693,13 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=72;
+
+--
+-- AUTO_INCREMENT for table `plans`
+--
+ALTER TABLE `plans`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `roles`
@@ -587,6 +712,12 @@ ALTER TABLE `roles`
 --
 ALTER TABLE `teams`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `testimonials`
+--
+ALTER TABLE `testimonials`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

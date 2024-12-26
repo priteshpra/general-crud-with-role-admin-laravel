@@ -1,7 +1,7 @@
 @extends('backend.layouts.master')
 
 @section('title')
-{{ __('Blogs - Admin Panel') }}
+{{ __('Events - Admin Panel') }}
 @endsection
 
 @section('styles')
@@ -21,10 +21,10 @@
     <div class="row align-items-center">
         <div class="col-sm-6">
             <div class="breadcrumbs-area clearfix">
-                <h4 class="page-title pull-left">{{ __('Blogs') }}</h4>
+                <h4 class="page-title pull-left">{{ __('Events') }}</h4>
                 <ul class="breadcrumbs pull-left">
                     <li><a href="{{ route('admin.dashboard') }}">{{ __('Dashboard') }}</a></li>
-                    <li><span>{{ __('All Blogs') }}</span></li>
+                    <li><span>{{ __('All Events') }}</span></li>
                 </ul>
             </div>
         </div>
@@ -41,11 +41,11 @@
         <div class="col-12 mt-5">
             <div class="card">
                 <div class="card-body">
-                    <h4 class="header-title float-left">{{ __('Blogs') }}</h4>
+                    <h4 class="header-title float-left">{{ __('Events') }}</h4>
                     <p class="float-right mb-2">
-                        @if (auth()->user()->can('blogs.edit'))
-                        <a class="btn btn-primary text-white" href="{{ route('admin.blogs.create') }}">
-                            {{ __('Create New Blog') }}
+                        @if (auth()->user()->can('event.edit'))
+                        <a class="btn btn-primary text-white" href="{{ route('admin.event.create') }}">
+                            {{ __('Create New Event') }}
                         </a>
                         @endif
                     </p>
@@ -56,8 +56,8 @@
                             <thead class="bg-light text-capitalize">
                                 <tr>
                                     <th width="5%">{{ __('Sl') }}</th>
-                                    <th width="10%">{{ __('Title') }}</th>
-                                    <th width="10%">{{ __('Heading') }}</th>
+                                    <th width="10%">{{ __('Event Name') }}</th>
+                                    <th width="10%">{{ __('Location') }}</th>
                                     <th width="40%">{{ __('Image') }}</th>
                                     <th width="15%">{{ __('Action') }}</th>
                                 </tr>
@@ -66,24 +66,24 @@
                                 @foreach ($admins as $admin)
                                 <tr>
                                     <td>{{ $loop->index+1 }}</td>
-                                    <td>{{ $admin->title }}</td>
-                                    <td>{{ $admin->heading }}</td>
-                                    <td><img src="{{ asset('/blogs/') }}/{{ $admin->image }}" width="100px"
+                                    <td>{{ $admin->event_name }}</td>
+                                    <td>{{ $admin->location }}</td>
+                                    <td><img src="{{ asset('/events/') }}/{{ $admin->image }}" width="100px"
                                             height="80px"></td>
                                     <td>
-                                        @if (auth()->user()->can('blogs.edit'))
+                                        @if (auth()->user()->can('event.edit'))
                                         <a class="btn btn-success text-white"
-                                            href="{{ route('admin.blogs.edit', $admin->id) }}">Edit</a>
+                                            href="{{ route('admin.event.edit', $admin->id) }}">Edit</a>
                                         @endif
 
-                                        @if (auth()->user()->can('blogs.delete'))
+                                        @if (auth()->user()->can('event.delete'))
                                         <a class="btn btn-danger text-white" href="javascript:void(0);"
                                             onclick="event.preventDefault(); if(confirm('Are you sure you want to delete?')) { document.getElementById('delete-form-{{ $admin->id }}').submit(); }">
                                             {{ __('Delete') }}
                                         </a>
 
                                         <form id="delete-form-{{ $admin->id }}"
-                                            action="{{ route('admin.blogs.destroy', $admin->id) }}" method="POST"
+                                            action="{{ route('admin.event.destroy', $admin->id) }}" method="POST"
                                             style="display: none;">
                                             @method('DELETE')
                                             @csrf

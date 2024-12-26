@@ -3,23 +3,23 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Http\Controllers\Controller;
-use App\Models\Banner;
+use App\Models\Testimonial;
 use Illuminate\Http\Request;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Http\RedirectResponse;
 use Spatie\Permission\Models\Role;
 
-class BannerController extends Controller
+class TestimonialController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $this->checkAuthorization(auth()->user(), ['banner.create']);
+        $this->checkAuthorization(auth()->user(), ['testimonial.create']);
 
-        return view('backend.pages.banners.index', [
-            'admins' => Banner::all(),
+        return view('backend.pages.testimonials.index', [
+            'admins' => Testimonial::all(),
         ]);
     }
 
@@ -28,9 +28,9 @@ class BannerController extends Controller
      */
     public function create()
     {
-        $this->checkAuthorization(auth()->user(), ['banner.create']);
+        $this->checkAuthorization(auth()->user(), ['testimonial.create']);
 
-        return view('backend.pages.banners.create', []);
+        return view('backend.pages.testimonials.create', []);
     }
 
     /**
@@ -38,9 +38,9 @@ class BannerController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-        $this->checkAuthorization(auth()->user(), ['banner.create']);
+        $this->checkAuthorization(auth()->user(), ['testimonial.create']);
 
-        $admin = new Banner();
+        $admin = new Testimonial();
         $admin->title = $request->title;
         $admin->heading = $request->heading;
         $admin->is_popup = isset($request->is_popup) && $request->is_popup == 'on' ? 1 : 0;
@@ -53,14 +53,14 @@ class BannerController extends Controller
         }
         $admin->save();
 
-        session()->flash('success', __('Banner has been created.'));
-        return redirect()->route('admin.banner.index');
+        session()->flash('success', __('Testimonial has been created.'));
+        return redirect()->route('admin.testimonial.index');
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Banner $banner)
+    public function show(Testimonial $banner)
     {
         //
     }
@@ -70,10 +70,10 @@ class BannerController extends Controller
      */
     public function edit(int $id): Renderable
     {
-        $this->checkAuthorization(auth()->user(), ['banner.edit']);
+        $this->checkAuthorization(auth()->user(), ['testimonial.edit']);
 
-        $admin = Banner::findOrFail($id);
-        return view('backend.pages.banners.edit', [
+        $admin = Testimonial::findOrFail($id);
+        return view('backend.pages.testimonials.edit', [
             'admin' => $admin,
             'roles' => Role::all(),
         ]);
@@ -84,8 +84,8 @@ class BannerController extends Controller
      */
     public function update(Request $request, int $id): RedirectResponse
     {
-        $this->checkAuthorization(auth()->user(), ['banner.edit']);
-        $admin = Banner::findOrFail($id);
+        $this->checkAuthorization(auth()->user(), ['testimonial.edit']);
+        $admin = Testimonial::findOrFail($id);
         $admin->title = $request->title;
         $admin->heading = $request->heading;
         $admin->is_popup = isset($request->is_popup) && $request->is_popup == 'on' ? 1 : 0;
@@ -98,7 +98,7 @@ class BannerController extends Controller
         }
         $admin->save();
 
-        session()->flash('success', 'Banner has been updated.');
+        session()->flash('success', 'Testimonial has been updated.');
         return back();
     }
 
@@ -107,11 +107,11 @@ class BannerController extends Controller
      */
     public function destroy(int $id): RedirectResponse
     {
-        $this->checkAuthorization(auth()->user(), ['banner.delete']);
+        $this->checkAuthorization(auth()->user(), ['testimonial.delete']);
 
-        $admin = Banner::findOrFail($id);
+        $admin = Testimonial::findOrFail($id);
         $admin->delete();
-        session()->flash('success', 'Banner has been deleted.');
+        session()->flash('success', 'Testimonial has been deleted.');
         return back();
     }
 }
